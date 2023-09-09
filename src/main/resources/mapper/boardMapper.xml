@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8.mapper.BoardMapper">
+
+    <insert id="insertBoard" parameterType="com.example.ch8.to.BoardDto">
+        insert into board(title,
+                          writer,
+                          content,
+                          write_date
+                          )
+        values (#{title},
+                #{writer},
+                #{content},
+                now()
+                )
+    </insert>
+
+
+
+    <!-- 아래의 select 쿼리에서 쿼리문의 중복이 일어나므로 sql 태그를 사용해서 여러곳에서 -->
+    <!-- 참조할수 있도록 해야겠다. -->
+    <sql id="selectFromBoard">
+
+        select bno as bno,
+               title as title,
+               writer as writer,
+               content as content,
+               write_date as writeDate,
+               update_date as updateDate,
+               board_like as boardLike
+        from board
+
+    </sql>
+
+
+    <select id="selectBoardList" resultType="com.example.ch8.to.BoardDto">
+
+        <include refid="selectFromBoard"/>
+
+
+    </select>
+
+
+    <!--여기다가는 나중에 조건에 따라서 title, writer로 목록을 selct하는 쿼리를 작성해야 겠다.-->
+    <!--조건에 따라서 bno 혹은 title 혹은 writer에 따라서 검색할수 있도록 해야겠다.-->
+    <select id="selectBoardDetail" parameterType="long"  resultType="com.example.ch8.to.BoardDto">
+
+        <include refid="selectFromBoard" />
+
+        where bno = #{bno}
+
+    </select>
+
+
+    <update id="updateBoard" parameterType="com.example.ch8.to.BoardDto">
+
+        update board set
+                    title=#{title},
+                    content=#{content},
+                    update_date=#{updateDate}
+        where bno=#{bno}
+
+    </update>
+
+    <delete id="deleteBoard" parameterType="long">
+        delete from board where bno=#{bno}
+    </delete>
+
+
+
+</mapper>
