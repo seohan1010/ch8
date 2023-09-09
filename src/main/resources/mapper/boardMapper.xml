@@ -58,7 +58,7 @@
         update board set
                     title=#{title},
                     content=#{content},
-                    update_date=#{updateDate}
+                    update_date=now()
         where bno=#{bno}
 
     </update>

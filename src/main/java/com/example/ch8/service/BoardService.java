@@ -10,8 +10,8 @@ public interface BoardService {
 
     public abstract void registerBoard(BoardDto boardDto)throws  Exception;
     public abstract List<BoardDto> findBoardList()throws Exception;
-    public abstract List<BoardDto> findBoardDetail(String title)throws Exception;
-    public abstract void updateBoard(BoardDto boardDto)throws Exception;
-    public abstract void deleteBoard(Long bno)throws Exception;
+    public abstract BoardDto findBoardDetail(Long bno)throws Exception;
+    public abstract void modifyBoard(Long boardIdx, BoardDto boardDto)throws Exception;
+    public abstract void removeBoard(Long bno)throws Exception;
 
 }

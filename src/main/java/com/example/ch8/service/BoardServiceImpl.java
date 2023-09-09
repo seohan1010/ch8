@@ -22,22 +22,26 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDto> findBoardList() throws Exception {
-//        return boardMapper.se
-        return null;
+              List<BoardDto> list = boardMapper.selectBoardList();
+        return list;
     }
 
     @Override
-    public List<BoardDto> findBoardDetail(String title) throws Exception {
-        return null;
+    public BoardDto findBoardDetail(Long bno) throws Exception {
+        BoardDto board = boardMapper.selectBoardDetail(bno);
+        return board;
     }
 
     @Override
-    public void updateBoard(BoardDto boardDto) throws Exception {
-
+    public void modifyBoard(Long boardIdx,BoardDto boardDto) throws Exception {
+       BoardDto board = boardMapper.selectBoardDetail(boardIdx);
+       board.setTitle(boardDto.getTitle());
+       board.setContent(boardDto.getContent());
+       boardMapper.updateBoard(board);
     }
 
     @Override
-    public void deleteBoard(Long bno) throws Exception {
-
+    public void removeBoard(Long bno) throws Exception {
+        boardMapper.deleteBoard(bno);
     }
 }

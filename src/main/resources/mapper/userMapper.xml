@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ch8.mapper.UserMapper">
+
+
+    <insert id="insertUser" parameterType="com.example.ch8.to.UserDto">
+
+        insert into user_info(name,
+                              password,
+                              email,
+                              birth_date,
+                              reg_date,
+                              sns)
+        values(#{name},
+               #{password},
+               #{email},
+               -- 생일은 null 값이 들어가도 되기 때문에 타입을 지정
+               #{birthDate, jdbcType=VARCHAR},
+               now(),
+               #{sns ,jdbcType=VARCHAR}
+               )
+
+    </insert>
+
+
+
+    <!-- 아래의 쿼리는 이메일 혹은 아이디에 따라서 실행되는 쿼리가 동적으로 변경되게 하면은 좋을거 같다.
+    다음 프로젝트에서 -->
+    <select id="selectUser" parameterType="String" resultType="com.example.ch8.to.UserDto">
+
+        select
+            name as name,
+            password as password,
+            email as email,
+            birth_date as birthDate,
+            reg_date as regDate,
+            sns as sns
+        from user_info
+        where name = #{name}
+
+    </select>
+
+
+    <update id="updateUser" parameterType="com.example.ch8.to.UserDto">
+
+        update user_info
+            set password = #{password},
+                -- 생일은 null값이 들어가도 되기 때문에 타입을 지정
+                birth_date = #{birthDate, jdbcType=VARCHAR},
+                sns = #{sns, jdbcType=VARCHAR}
+         where name = #{name}
+
+    </update>
+
+
+
+    <!-- 다음프로젝트에서는 이름과 이메일을 같이 비교하는 쿼리문을 작성하자. -->
+    <delete  id="deleteUser" parameterType="String">
+
+        delete from user_info
+        where name = #{name}
+
+    </delete>
+
+
+</mapper>
