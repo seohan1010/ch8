@@ -46,7 +46,7 @@ public class UserDto {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public String getPassword() {
@@ -54,7 +54,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public String getEmail() {
@@ -62,7 +62,7 @@ public class UserDto {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public Date getBirthDate() {

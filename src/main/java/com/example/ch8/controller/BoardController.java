@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
+
 
 
 @RestController
@@ -55,10 +56,10 @@ public class BoardController {
                         throw new Exception("no data exception");
                         return new ResponseEntity<BoardDto>(board,HttpStatus.OK); // 200번 코드
                }catch(Exception e){
-                        e.printStackTrace();
+                   e.printStackTrace();
+               return new ResponseEntity<BoardDto>(board,HttpStatus.BAD_REQUEST); // 400번 에러코드
                }
 
-               return new ResponseEntity<BoardDto>(board,HttpStatus.BAD_REQUEST); // 400번 에러코드
     }
 
 
@@ -68,9 +69,9 @@ public class BoardController {
         boardService.modifyBoard(bno ,boardDto);
        BoardDto board = boardService.findBoardDetail(bno);
         if(board.getTitle().equals(boardDto.getTitle())&&board.getContent().equals(boardDto.getContent())){
-                return new ResponseEntity<HttpStatus>(HttpStatus.CREATED); // 201 코드
+                return new ResponseEntity<HttpStatus>(HttpStatus.CREATED); // 201번 코드
         }else{
-                return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST); // 400번 코드
         }
     }
 
@@ -79,9 +80,9 @@ public class BoardController {
 
         boardService.removeBoard(bno);
         if (boardService.findBoardDetail(bno) == null) {
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<HttpStatus>(HttpStatus.OK); // 200번 코드
         } else {
-            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST); // 400번 코드
         }
     }
 }

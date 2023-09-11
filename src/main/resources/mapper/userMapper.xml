@@ -27,7 +27,7 @@
 
     <!-- 아래의 쿼리는 이메일 혹은 아이디에 따라서 실행되는 쿼리가 동적으로 변경되게 하면은 좋을거 같다.
     다음 프로젝트에서 -->
-    <select id="selectUser" parameterType="String" resultType="com.example.ch8.to.UserDto">
+    <select id="selectUser" parameterType="map" resultType="com.example.ch8.to.UserDto">
 
         select
             name as name,
@@ -38,8 +38,27 @@
             sns as sns
         from user_info
         where name = #{name}
+        and email = #{email}
 
     </select>
+
+
+    <select id="selectUserEmail" parameterType="string" resultType="com.example.ch8.to.UserDto">
+
+        select
+            name as name,
+            password as password,
+            email as email,
+            birth_date as birthDate,
+            reg_date as regDate,
+            sns as sns
+        from user_info
+        where email = #{email}
+
+    </select>
+
+
+
 
 
     <update id="updateUser" parameterType="com.example.ch8.to.UserDto">
@@ -50,16 +69,18 @@
                 birth_date = #{birthDate, jdbcType=VARCHAR},
                 sns = #{sns, jdbcType=VARCHAR}
          where name = #{name}
+         and email = #{email}
 
     </update>
 
 
 
     <!-- 다음프로젝트에서는 이름과 이메일을 같이 비교하는 쿼리문을 작성하자. -->
-    <delete  id="deleteUser" parameterType="String">
+    <delete  id="deleteUser" parameterType="map">
 
         delete from user_info
         where name = #{name}
+        and   email=#{email}
 
     </delete>
 

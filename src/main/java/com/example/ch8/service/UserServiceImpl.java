@@ -5,6 +5,7 @@ import com.example.ch8.to.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -20,8 +21,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findUser(String name) throws Exception {
-        return   userMapper.selectUser(name);
+    public UserDto findUser(Map map) throws Exception {
+        return   userMapper.selectUser(map);
+    }
+
+    @Override
+    public UserDto findUserEmail(String email) throws Exception {
+       return userMapper.selectUserEmail(email);
     }
 
     @Override
@@ -30,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUser(String name) throws Exception {
-                userMapper.deleteUser(name);
+    public void removeUser(Map map) throws Exception {
+                userMapper.deleteUser(map);
     }
 }
