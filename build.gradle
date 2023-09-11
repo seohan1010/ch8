@@ -16,10 +16,17 @@ repositories {
 }
 
 dependencies {
+
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    //controller에서 json 객체를 받기 위해서 필요한 jasckon 라이브러리
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
+
 
     //database
     implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.1.0'
@@ -32,6 +39,7 @@ dependencies {
 
     /* 로깅 설정*/
     implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
 
 }
 

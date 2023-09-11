@@ -7,17 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Ch8Application implements CommandLineRunner {
+public class Ch8Application{
 
     public static void main(String[] args) {
-
-        SpringApplication app = new SpringApplication(Ch8Application.class);
-        app.setWebApplicationType(WebApplicationType.NONE);
-        app.run(args);
+        SpringApplication.run(Ch8Application.class, args);
     }
 
-    @Override
-    public void run(String... args){
-        
-    }
+
 }

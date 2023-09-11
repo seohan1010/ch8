@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
+//이거는 다시 생각해서 작성해보자  로직이 좀 필요할거 같다.
+// 동명이인인  user라면 입력된 비밀번호와 이메일로 비교하는 로직이 필요하다.
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -21,7 +25,8 @@ public class LoginController {
         public UserDto loginCheck(UserDto userDto)throws Exception{
 
               UserDto userDto2 = userMapper.selectUser(userDto.getName());
-              if(userDto != null &&userDto.getPassword().equals(userDto2.getPassword())){
+              // user가 null이 아니고 이메일이 일치하고
+              if(userDto != null&& userDto.getEmail().equals(userDto2.getEmail()) &&userDto.getPassword().equals(userDto2.getPassword())){
                      return userDto2;
               }else{
 

@@ -1,5 +1,6 @@
 package com.example.ch8.to;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,8 +9,8 @@ public class BoardDto {
   private String title;
   private String writer;
   private String content;
-  private Date writeDate;
-  private String updateDate;
+  private LocalDate writeDate;
+  private LocalDate updateDate;
   private Long boardLike;
 
 
@@ -77,19 +78,21 @@ public class BoardDto {
         this.content = content;
     }
 
-    public Date getWriteDate() {
+    public LocalDate getWriteDate() {
         return writeDate;
+
     }
 
-    public void setWriteDate(Date writeDate) {
+    public void setWriteDate(LocalDate writeDate) {
         this.writeDate = writeDate;
     }
 
-    public String getUpdateDate() {
+
+    public LocalDate getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
     }
 

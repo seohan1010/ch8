@@ -87,7 +87,7 @@ class BoardMapperTest {
     @DisplayName("selectDetail-Test")
     public void selectDetailTest()throws Exception{
 
-        Long bno = 5L;
+        Long bno = 4808L;
 
         BoardDto board = boardMapper.selectBoardDetail(bno);
         assertNotNull(bno);
