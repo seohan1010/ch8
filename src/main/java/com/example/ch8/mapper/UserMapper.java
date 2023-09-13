@@ -17,6 +17,6 @@ public interface UserMapper {
 
    public abstract void updateUser(UserDto userDto)throws Exception;
 
-   public abstract void deleteUser(Map map)throws Exception;
+   public abstract void deleteUser(String email)throws Exception;
 
 }

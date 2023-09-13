@@ -16,7 +16,7 @@
                #{password},
                #{email},
                -- 생일은 null 값이 들어가도 되기 때문에 타입을 지정
-               #{birthDate, jdbcType=VARCHAR},
+               #{birthday, jdbcType=VARCHAR},
                now(),
                #{sns ,jdbcType=VARCHAR}
                )
@@ -33,12 +33,11 @@
             name as name,
             password as password,
             email as email,
-            birth_date as birthDate,
+            birth_date as birthday,
             reg_date as regDate,
             sns as sns
         from user_info
-        where name = #{name}
-        and email = #{email}
+        where email = #{email}
 
     </select>
 
@@ -49,7 +48,7 @@
             name as name,
             password as password,
             email as email,
-            birth_date as birthDate,
+            birth_date as birthday,
             reg_date as regDate,
             sns as sns
         from user_info
@@ -58,15 +57,12 @@
     </select>
 
 
-
-
-
     <update id="updateUser" parameterType="com.example.ch8.to.UserDto">
 
         update user_info
             set password = #{password},
                 -- 생일은 null값이 들어가도 되기 때문에 타입을 지정
-                birth_date = #{birthDate, jdbcType=VARCHAR},
+                birth_date = #{birthday, jdbcType=VARCHAR},
                 sns = #{sns, jdbcType=VARCHAR}
          where name = #{name}
          and email = #{email}
@@ -76,11 +72,10 @@
 
 
     <!-- 다음프로젝트에서는 이름과 이메일을 같이 비교하는 쿼리문을 작성하자. -->
-    <delete  id="deleteUser" parameterType="map">
+    <delete  id="deleteUser" parameterType="string">
 
         delete from user_info
-        where name = #{name}
-        and   email=#{email}
+        where email=#{email}
 
     </delete>
 

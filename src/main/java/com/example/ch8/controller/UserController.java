@@ -12,10 +12,11 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+// user 컨트롤러에 RestController로
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController{
 
         @Autowired
         UserService userService;
@@ -38,38 +39,61 @@ public class UserController {
         }
 
 
-        //회원가입을 하려고 submit을 할때, 해당 이메일이 존재하면은 사용자에게 알려준다.
+        // 회원가입을 하려고 submit을 할때, 해당 이메일이 존재하면은 사용자에게 알려준다.
+        // 여기서 String으로 받아오면은 json객체그대로 받게되기 때문에
+        // 이렇게 Map을 이용해서 "키" "값" 형태로 받아올수 있는거 같다.
         @RequestMapping(value="/email", method=RequestMethod.POST)
-        public ResponseEntity<HttpStatus> emailCheck(@RequestBody String email )throws Exception{
+        public ResponseEntity<HttpStatus> emailCheck(@RequestBody HashMap<String, String> email )throws Exception{
 
-                UserDto user = userService.findUserEmail(email);
-                if(user !=null){
+                System.out.println("<<<<<<< email = " + email.get("email"));
+                UserDto user = userService.findUserEmail(email.get("email"));
+                System.out.println(">>>>>> user = " + user);
+                if(user==null){
                     return new ResponseEntity<HttpStatus>(HttpStatus.CONFLICT); // 409번 코드
                     // else블럭에서만 return 하면은 오류가 나지 않는데,
                     // else if로 작성하면은 오류가 발생한다.
                 }else{
                     return new ResponseEntity<HttpStatus>(HttpStatus.OK);       // 200번 코드
                 }
+
         }
 
 
-        @RequestMapping(value="/user",method=RequestMethod.PUT)
-        public void modifyUser(@RequestBody UserDto userDto)throws Exception{
-                userService.modifyUser(userDto);
+
+        // user 컨트롤러는 user의 정보를 url 혹은 uri에 노출할수 없기 때문에
+        // restfull 하지는 못할거 같다.
+        @RequestMapping(value="/modify",method=RequestMethod.POST)
+        public ResponseEntity<HttpStatus> modifyUser(@RequestBody UserDto userDto)throws Exception{
+
+                try {
+                        userService.modifyUser(userDto);
+                        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+                }catch(Exception e){
+                        e.printStackTrace();
+                        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+                }
         }
-        //
 
 
         // 아이디를 세션에 저장한 다음에 session에서 바로 가져오는지를 확인해 봐야겠다.
-        @RequestMapping(value="/user",method=RequestMethod.DELETE)
-        public void deleteUser(@RequestBody UserDto userDto, HttpServletRequest request, HttpSession session)throws Exception{
+        // session에서 user의 정보를 가지고 와서 삭제하는 로직을 사용해야 겠다.\
 
-               String name = userDto.getName();
-               String email = userDto.getEmail();
-                Map<String, String> map = new HashMap<>();
-                map.put("name",name);
-                map.put("email",email);
-                userService.removeUser(map);
+        @RequestMapping(value="/delete",method=RequestMethod.POST)
+        public ResponseEntity<HttpStatus> deleteUser(HttpSession session)throws Exception{
+
+                String email = (String)session.getAttribute("email");
+                System.out.println("<<<<<<<<<<< email = " + email);
+
+                try {
+                        userService.removeUser(email);
+                        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+
+                        // 예외가 발생했을때 에러코드를 보낸다
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+                }
+
         }
 
 

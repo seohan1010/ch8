@@ -20,10 +20,20 @@ public class BoardController {
     BoardService boardService;
 
 
+    // try catch로 잡아서 예외가 발생하지 않으면은 200번 코드를 반환
+    // 예외가 발생하면은 적절한 에러코드를 반환
 
     @RequestMapping(value="/board",method=RequestMethod.POST)
-    public void registerBoard(@RequestBody BoardDto boardDto)throws Exception{
-        boardService.registerBoard(boardDto);
+    public ResponseEntity<HttpStatus> registerBoard(@RequestBody BoardDto boardDto)throws Exception{
+
+        try {
+            boardService.registerBoard(boardDto);
+            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        } catch (Exception e) {
+           e.printStackTrace();
+           return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 
@@ -34,20 +44,20 @@ public class BoardController {
                 try{
                     if(boardList.size()==0)
                         throw new Exception("no data exception");
-                        return new ResponseEntity<List<BoardDto>>(boardList,HttpStatus.OK);
+                        return new ResponseEntity<List<BoardDto>>(boardList,HttpStatus.OK); // 200번 코드
 
                 }catch(Exception e){
                     e.printStackTrace();
                 }
 
-                return new ResponseEntity<List<BoardDto>>(boardList,HttpStatus.OK);
+                return new ResponseEntity<List<BoardDto>>(boardList,HttpStatus.OK); // 400번 코드
 
     }
 
 
 
 
-    @RequestMapping(value="/detail/{bno}",method=RequestMethod.GET)
+    @RequestMapping(value="/board/{bno}",method=RequestMethod.GET)
     public ResponseEntity<BoardDto> findBoardDetail(@PathVariable("bno") Long bno)throws Exception{
                BoardDto board = boardService.findBoardDetail(bno);
 
@@ -74,6 +84,7 @@ public class BoardController {
                 return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST); // 400번 코드
         }
     }
+
 
     @RequestMapping(value="/board/{bno}",method=RequestMethod.DELETE)
     public ResponseEntity<HttpStatus> removeBoard(@PathVariable("bno") Long bno)throws Exception {

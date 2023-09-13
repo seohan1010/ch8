@@ -33,10 +33,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void modifyUser(UserDto userDto) throws Exception {
                 userMapper.updateUser(userDto);
+
     }
 
+
     @Override
-    public void removeUser(Map map) throws Exception {
-                userMapper.deleteUser(map);
+    public void removeUser(String email) throws Exception {
+                userMapper.deleteUser(email);
     }
 }

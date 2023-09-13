@@ -12,6 +12,6 @@ public abstract void registerUser(UserDto userDto)throws Exception;
 public abstract UserDto findUser(Map map)throws Exception;
 public abstract UserDto findUserEmail(String email)throws Exception;
 public abstract void modifyUser(UserDto userDto)throws Exception;
-public abstract  void removeUser(Map map)throws Exception;
+public abstract  void removeUser(String email)throws Exception;
 
 }

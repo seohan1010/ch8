@@ -119,12 +119,12 @@ class UserMapperTest {
 
         String name="test";
         String email="aaa@aaa.com";
-
         Map<String, String> map = new HashMap<>();
         map.put("name",name);
         map.put("email",email);
 
-        userMapper.deleteUser(map);
+
+        userMapper.deleteUser(email);
         UserDto user2 = userMapper.selectUser(map);
         assertNull(user2);
 

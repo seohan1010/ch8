@@ -8,7 +8,7 @@ public class UserDto {
    private String name;
    private String password;
    private String email;
-   private Date birthDate;
+   private String birthday;
    private Date regDate;
    private String sns;
 
@@ -21,12 +21,12 @@ public class UserDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return Objects.equals(name, userDto.name) && Objects.equals(password, userDto.password) && Objects.equals(email, userDto.email) && Objects.equals(birthDate, userDto.birthDate) && Objects.equals(regDate, userDto.regDate) && Objects.equals(sns, userDto.sns);
+        return Objects.equals(name, userDto.name) && Objects.equals(password, userDto.password) && Objects.equals(email, userDto.email) && Objects.equals(birthday, userDto.birthday) && Objects.equals(regDate, userDto.regDate) && Objects.equals(sns, userDto.sns);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password, email, birthDate, regDate, sns);
+        return Objects.hash(name, password, email, birthday, regDate, sns);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserDto {
                 "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthday=" + birthday +
                 ", regDate=" + regDate +
                 ", sns='" + sns + '\'' +
                 '}';
@@ -46,7 +46,7 @@ public class UserDto {
     }
 
     public void setName(String name) {
-        this.name = name.trim();
+        this.name = name.trim() ==""?null:name.trim();
     }
 
     public String getPassword() {
@@ -54,7 +54,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password = password.trim();
+        this.password = password.trim()==""?null:password.trim();
     }
 
     public String getEmail() {
@@ -62,15 +62,16 @@ public class UserDto {
     }
 
     public void setEmail(String email) {
-        this.email = email.trim();
+        this.email = email.trim() == "" ? null:email;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public Date getRegDate() {

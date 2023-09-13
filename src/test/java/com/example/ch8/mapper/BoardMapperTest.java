@@ -19,8 +19,10 @@ class BoardMapperTest {
     BoardMapper boardMapper;
 
 
+    // @BeforeEach는 해당 애노테이션이 붙어있는 메서드가 속한 클래스 안에
+    // 있는 테스트 관련 메서드가 실행 될때마다 실행이된다.(자기자신도 포함)
+
     @Test
-    @BeforeEach
     public void testData()throws Exception{
 
         String title = "test title";
@@ -35,7 +37,6 @@ class BoardMapperTest {
             b.setContent(content+i);
             boardMapper.insertBoard(b);
         }
-
     }
 
 

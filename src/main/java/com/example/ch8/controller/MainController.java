@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
     // 메서드와 url을 매핑해주는 것을 엔드 포인트라고 한다.
+
 @RequestMapping(value="/",method= RequestMethod.GET)
- public String main(HttpServletRequest request){
+ public void main(HttpServletRequest request){
 
     System.out.println(request.getRequestURL());
-    System.out.println("hello");
 
-    return "Connection Successful";
+
 }
 
 
